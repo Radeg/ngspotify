@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ROUTER_DIRECTIVES, Router} from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import {SpotifyService} from '../../services/spotify.service';
 import {Artist} from '../../artist';
@@ -7,7 +8,8 @@ import {Album} from '../../album';
 @Component({
     moduleId: module.id,
     selector: 'artist',
-    templateUrl: 'artist.component.html'
+    templateUrl: 'artist.component.html',
+    directives: [ROUTER_DIRECTIVES]
 })
 
 export class ArtistComponent {
@@ -15,7 +17,7 @@ export class ArtistComponent {
     artist: Artist[];
     albums: Album[];
 
-    constructor(private _spotifyService: SpotifyService, private _route: ActivatedRoute) {
+    constructor(private _spotifyService: SpotifyService, private _route: ActivatedRoute, private _router: Router) {
 
     }
 
@@ -29,5 +31,9 @@ export class ArtistComponent {
             .subscribe(albums => {
                 this.albums = albums.items;
         });
+    }
+
+    onClick(album: Album[]) {
+        this._router.navigate(['/album', album.id]);
     }
 }
