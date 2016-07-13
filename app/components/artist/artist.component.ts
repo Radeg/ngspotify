@@ -24,5 +24,10 @@ export class ArtistComponent {
             .subscribe(artist => {
                 this.artist = artist;
         });
+
+        this._spotifyService.getAlbums(this._route.snapshot.params.id)
+            .subscribe(albums => {
+                this.albums = albums.items;
+        });
     }
 }
